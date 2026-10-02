@@ -2,9 +2,13 @@
 
 **An inspectable AI/software organization control-plane foundation with 1,000 simulated positions, bounded orchestration and a minimal MCP tool gateway.**
 
-[Open working dashboard](https://enterprise-ai-os.vivekmlresearch.chatgpt.site) · [Architecture](ARCHITECTURE.md) · [Product case and benefits](PRODUCT-CASE.md) · [16-week program plan](PROGRAM-PLAN.md) · [MIT license](LICENSE)
+[GitHub Pages overview](https://vivekmlresearch.github.io/enterprise-ai-os/) · [Open working dashboard](https://enterprise-ai-os.vivekmlresearch.chatgpt.site) · [Architecture](ARCHITECTURE.md) · [Product case and benefits](PRODUCT-CASE.md) · [16-week program plan](PROGRAM-PLAN.md) · [MIT license](LICENSE)
 
 > Status: offline prototype. The registry contains 1,000 logical positions, not 1,000 connected LLM agents. Outputs are deterministic templates. No real model, distributed worker cluster, UCP merchant or A2A service is connected. This project is independent and does not represent Google or any other company's employees or internal organization.
+
+## Published overview
+
+![Live GitHub Pages overview](enterprise-ai-os-pages-live.jpg)
 
 ## Interface screenshots
 
@@ -69,7 +73,7 @@ pnpm exec tsc --noEmit
 pnpm build
 ```
 
-The GitHub CI workflow runs the dependency-free engine test. Local type/build validation requires installed dependencies. Managed Sites helpers are included as upstream starter tooling; a standalone deployment requires hosting-specific configuration. The public repository intentionally excludes the original Site identity, tokens and environment files.
+The source archive includes a GitHub CI example for the dependency-free engine test; it is not installed in the root repository. Local type/build validation requires installed dependencies. Managed Sites helpers are included as upstream starter tooling; a standalone deployment requires hosting-specific configuration. The public repository intentionally excludes the original Site identity, tokens and environment files.
 
 ## APIs
 
