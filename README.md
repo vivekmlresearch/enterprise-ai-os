@@ -2,17 +2,17 @@
 
 **An inspectable AI/software organization control-plane foundation with 1,000 simulated positions, bounded orchestration and a minimal MCP tool gateway.**
 
-[GitHub Pages overview](https://vivekmlresearch.github.io/enterprise-ai-os/) · [Open working dashboard](https://enterprise-ai-os.vivekmlresearch.chatgpt.site) · [Architecture](ARCHITECTURE.md) · [Product case and benefits](PRODUCT-CASE.md) · [16-week program plan](PROGRAM-PLAN.md) · [MIT license](LICENSE)
+[GitHub Pages overview](https://vivekmlresearch.github.io/enterprise-ai-os/) · [Open working dashboard](https://enterprise-ai-os.vivekmlresearch.chatgpt.site) · [Architecture](docs/ARCHITECTURE.md) · [Product case and benefits](docs/PRODUCT-CASE.md) · [16-week program plan](docs/PROGRAM-PLAN.md) · [MIT license](LICENSE)
 
-> Status: offline prototype. The registry contains 1,000 logical positions, not 1,000 connected LLM agents. Outputs are deterministic templates. No real model, distributed worker cluster, UCP merchant or A2A service is connected. This project is independent and does not represent Google or any other company's employees or internal organization.
-
-## Published overview
-
-![Live GitHub Pages overview](enterprise-ai-os-pages-live.jpg)
+> Status: offline prototype. The registry contains 1,000 logical positions, not 1,000 connected LLM agents. Outputs are deterministic templates. No real model, distributed worker cluster, UCP merchant or A2A service is connected. 
 
 ## Interface screenshots
 
-Screenshot capture is pending: the execution environment lacks an installed Chromium runtime and its download failed. No synthetic screenshot is presented as a real application capture. Planned captures: mission overview, role registry, and offline execution trace. The working interface is available at the dashboard link above.
+![Mission overview](docs/screenshots/overview.png)
+![Role registry](docs/screenshots/agent-registry.png)
+![Offline execution trace](docs/screenshots/execution-trace.png)
+
+Captured from the public dashboard. Outputs are deterministic offline templates.
 
 ## Why this project
 
@@ -51,10 +51,6 @@ Role names are taxonomy only. Distinct role prompts, model-backed workflows and 
 | A2A | Not implemented | Remote discovery and delegation |
 | Scale | 1,000-task local correctness test | Distributed inference/load/recovery testing |
 
-## Source distribution
-
-The complete source is published as [enterprise-ai-os-publication-draft.zip](enterprise-ai-os-publication-draft.zip). Extract it before running the commands below. Individual source files have not yet been imported into the root tree. The automated import was blocked by approval review; no write-enabled import workflow was committed.
-
 ## Quick start
 
 Prerequisite: Node 22.13+ (Node 24 recommended), package manager pinned in package.json.
@@ -73,7 +69,7 @@ pnpm exec tsc --noEmit
 pnpm build
 ```
 
-The source archive includes a GitHub CI example for the dependency-free engine test; it is not installed in the root repository. Local type/build validation requires installed dependencies. Managed Sites helpers are included as upstream starter tooling; a standalone deployment requires hosting-specific configuration. The public repository intentionally excludes the original Site identity, tokens and environment files.
+The GitHub CI workflow runs the dependency-free engine test. Local type/build validation requires installed dependencies. Managed Sites helpers are included as upstream starter tooling; a standalone deployment requires hosting-specific configuration. The public repository intentionally excludes the original Site identity, tokens and environment files.
 
 ## APIs
 
@@ -87,7 +83,7 @@ curl -X POST http://localhost:3000/api/mcp \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
 ```
 
-Replace the port with the printed development port. MCP tools are `agents_list` and `catalog_search` (synthetic data). See [API details and limits](ARCHITECTURE.md).
+Replace the port with the printed development port. MCP tools are `agents_list` and `catalog_search` (synthetic data). See [API details and limits](docs/ARCHITECTURE.md).
 
 ## Product goals and quantified value
 
@@ -95,7 +91,7 @@ Measured: 1,000 unique registry IDs, 1,000 completed offline tasks, peak concurr
 
 Proposed pilot targets: 25% faster reviewed task completion, 30% less coordination effort, 95% required trace coverage, 80% independently accepted tasks without baseline degradation, and 20% lower cost per accepted task. None has been demonstrated.
 
-Illustrative assumptions (50 users × 20 tasks/month × 30 minutes/task × 25% effort reduction) yield **125 hours/month** of released capacity. At $50/hour that is $6,250 gross value/month; deducting assumed recurring cost of $2,100 gives $4,150 net capacity value/month. This is a scenario, not a measured ROI claim. [Read formulas, sensitivity and validation plan](PRODUCT-CASE.md).
+Illustrative assumptions (50 users × 20 tasks/month × 30 minutes/task × 25% effort reduction) yield **125 hours/month** of released capacity. At $50/hour that is $6,250 gross value/month; deducting assumed recurring cost of $2,100 gives $4,150 net capacity value/month. This is a scenario, not a measured ROI claim. [Read formulas, sensitivity and validation plan](docs/PRODUCT-CASE.md).
 
 ## Delivery roadmap
 
@@ -110,7 +106,7 @@ Proposed kickoff: 5 October 2026. Sixteen-week baseline completion: 24 January 2
 7. Weeks 13–14: scale tests and optional A2A/UCP adapters.
 8. Weeks 15–16: recovery drills, runbooks and release gates.
 
-[Detailed owners, dependencies, acceptance criteria and risks](PROGRAM-PLAN.md).
+[Detailed owners, dependencies, acceptance criteria and risks](docs/PROGRAM-PLAN.md).
 
 ## Framework evolution
 
@@ -118,7 +114,7 @@ Retain the React/TypeScript UI. Evaluate LangGraph for role workflows, Temporal 
 
 ## GitHub Pages
 
-`index.html` is a static technical/product overview linking to the working dashboard. The overview is served from the main branch root using GitHub Pages. The source archive includes optional CI/Pages workflow examples, but they are not installed in this repository. GitHub Pages cannot host this app's server API; it is not a second backend deployment. A GitHub Pages URL should be announced only after deployment succeeds.
+`docs/index.html` is a static technical/product overview linking to the working dashboard. `.github/workflows/pages.yml` publishes it when Pages is configured with GitHub Actions. GitHub Pages cannot host this app's server API; it is not a second backend deployment. A GitHub Pages URL should be announced only after deployment succeeds.
 
 ## License and contribution
 
