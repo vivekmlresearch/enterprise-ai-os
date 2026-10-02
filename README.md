@@ -2,13 +2,13 @@
 
 **An inspectable AI/software organization control-plane foundation with 1,000 simulated positions, bounded orchestration and a minimal MCP tool gateway.**
 
-[GitHub Pages overview](https://vivekmlresearch.github.io/enterprise-ai-os/) · [Open working dashboard](https://enterprise-ai-os.vivekmlresearch.chatgpt.site) · [Architecture](docs/ARCHITECTURE.md) · [Product case and benefits](docs/PRODUCT-CASE.md) · [16-week program plan](docs/PROGRAM-PLAN.md) · [MIT license](LICENSE)
+[GitHub Pages overview](https://vivekmlresearch.github.io/enterprise-ai-os/) · [Open interactive demo](https://vivekmlresearch.github.io/enterprise-ai-os/dashboard.html) · [Architecture](docs/ARCHITECTURE.md) · [Product case and benefits](docs/PRODUCT-CASE.md) · [16-week program plan](docs/PROGRAM-PLAN.md) · [MIT license](LICENSE)
 
 > Status: offline prototype. The registry contains 1,000 logical positions, not 1,000 connected LLM agents. Outputs are deterministic templates. No real model, distributed worker cluster, UCP merchant or A2A service is connected. 
 
 ## Version 2 — working AI team
 
-**Release status: requirements prepared; implementation pending.** The current public dashboard remains the offline V1 prototype. V2 will activate 5–10 genuine specialist agents; the 1,000-role registry remains the organizational blueprint.
+**Release status: requirements prepared; implementation pending.** The public interactive demo remains the offline V1 prototype. V2 will activate 5–10 genuine specialist agents; the 1,000-role registry remains the organizational blueprint.
 
 ### Mission and scope
 
@@ -43,10 +43,10 @@ This is a scoped pilot track within the broader sixteen-week roadmap, assuming a
 
 | Milestone | Proposed dates | Accountable role | Exit criteria |
 |---|---|---|---|
-| Contracts and model execution | 5–11 October 2026 | Principal Engineer / ML Engineer | Versioned contracts and three genuine specialists; provider errors handled |
-| Coordination and persistence | 12–18 October 2026 | Platform Engineer | Five or more specialists complete dependent tasks; restart recovery demonstrated |
-| Tools and controls | 19–25 October 2026 | Security / Platform Engineer | Approved MCP tools, isolated execution, approval gates and spending limits |
-| Evaluation and pilot release | 26 October–1 November 2026 | QA / Product Manager / TPM | Thirty evaluated missions, failure tests, revised screenshots and reproducible setup |
+| Contracts and model execution | Week 1 | Principal Engineer / ML Engineer | Versioned contracts and three genuine specialists; provider errors handled |
+| Coordination and persistence | Week 2 | Platform Engineer | Five or more specialists complete dependent tasks; restart recovery demonstrated |
+| Tools and controls | Week 3 | Security / Platform Engineer | Approved MCP tools, isolated execution, approval gates and spending limits |
+| Evaluation and pilot release | Week 4 | QA / Product Manager / TPM | Thirty evaluated missions, failure tests, revised screenshots and reproducible setup |
 
 ### Release gates and product measures
 
@@ -147,7 +147,7 @@ Illustrative assumptions (50 users × 20 tasks/month × 30 minutes/task × 25% e
 
 ## Delivery roadmap
 
-Proposed kickoff: 5 October 2026. Sixteen-week baseline completion: 24 January 2027; separate two-week contingency to 7 February. Assumes a staffed engineering team, not a solo developer.
+Baseline delivery: weeks 1–16; separate contingency: weeks 17–18. Assumes a staffed engineering team, not a solo developer.
 
 1. Weeks 1–2: contracts, scope, threat model and baseline tasks.
 2. Weeks 3–4: 5–10 genuine model-backed specialist roles.
@@ -166,10 +166,11 @@ Retain the React/TypeScript UI. Evaluate LangGraph for role workflows, Temporal 
 
 ## GitHub Pages
 
-[Public project overview](https://vivekmlresearch.github.io/enterprise-ai-os/) is deployed from the root of the main branch. docs/index.html contains the overview source. GitHub Pages hosts the static documentation and screenshots; the working dashboard and server API run on Sites.
+[Public project overview](https://vivekmlresearch.github.io/enterprise-ai-os/) is deployed from the root of the main branch. docs/index.html contains the overview source. GitHub Pages hosts the static documentation and screenshots; the interactive demo runs entirely in the browser. The repository also contains server API source for a separate backend deployment.
 
 ## License and contribution
 
 Project-authored code/documentation: MIT. Dependencies and starter material retain upstream licenses; see [third-party notices](THIRD_PARTY_NOTICES.md). No model weights or private training data are distributed. Contributions should include meaningful acceptance evidence and preserve the distinction between simulated and real capabilities. See [contributing](CONTRIBUTING.md) and [security](SECURITY.md).
+
 
 
