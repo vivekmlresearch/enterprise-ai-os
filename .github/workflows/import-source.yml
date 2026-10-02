@@ -1,0 +1,98 @@
+name: Import source and capture portfolio screenshots
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Expand reviewed source
+        run: |
+          python - <<'PY'
+          import zipfile,pathlib
+          archive=pathlib.Path('enterprise-ai-os-publication-draft.zip')
+          if archive.exists():
+            with zipfile.ZipFile(archive) as z:
+              for name in z.namelist():
+                parts=pathlib.PurePosixPath(name).parts[1:]
+                if not parts or '..' in parts or parts[0]=='.github':continue
+                dest=pathlib.Path(*parts);dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(z.read(name))
+            archive.unlink()
+          sentence="This project is independent and does not represent Google or any other company's employees or internal organization."
+          for path in pathlib.Path('.').rglob('*.md'):
+            if '.git' not in path.parts:
+              path.write_text(path.read_text().replace(sentence,''))
+          readme=pathlib.Path('README.md')
+          readme.write_text(readme.read_text().replace('[Open working dashboard]','[GitHub Pages overview](https://vivekmlresearch.github.io/enterprise-ai-os/) · [Open working dashboard]',1))
+          pathlib.Path('.nojekyll').touch()
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify engine
+        run: node --experimental-strip-types tests/engine.test.ts
+      - name: Prepare screenshot runtime
+        run: |
+          mkdir -p /tmp/ai-os-capture
+          cd /tmp/ai-os-capture
+          npm init -y
+          npm install playwright
+          npx playwright install --with-deps chromium
+      - name: Capture real dashboard
+        continue-on-error: true
+        run: |
+          node - <<'JS'
+          const {chromium}=require('/tmp/ai-os-capture/node_modules/playwright');
+          const fs=require('fs');
+          (async()=>{
+            fs.mkdirSync('docs/screenshots',{recursive:true});
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage({viewport:{width:1440,height:1100}});
+            await page.goto('https://enterprise-ai-os.vivekmlresearch.chatgpt.site',{waitUntil:'load',timeout:60000});
+            await page.getByRole('heading',{name:'Overview',exact:true}).waitFor();
+            await page.screenshot({path:'docs/screenshots/overview.png',fullPage:true});
+            await page.getByRole('button',{name:'Agent registry',exact:true}).click();
+            await page.getByText('Agent directory',{exact:true}).waitFor();
+            await page.screenshot({path:'docs/screenshots/agent-registry.png',fullPage:true});
+            await page.getByRole('button',{name:'Overview',exact:true}).click();
+            await page.getByRole('button',{name:'Run mission',exact:true}).click();
+            await page.getByText('Execution trace',{exact:true}).waitFor();
+            await page.screenshot({path:'docs/screenshots/execution-trace.png',fullPage:true});
+            await browser.close();
+            let readme=fs.readFileSync('README.md','utf8');
+            const a=readme.indexOf('## Interface screenshots'),b=readme.indexOf('## Why this project');
+            if(a>=0&&b>a){readme=readme.slice(0,a)+'## Interface screenshots\n\n![Mission overview](docs/screenshots/overview.png)\n![Role registry](docs/screenshots/agent-registry.png)\n![Offline execution trace](docs/screenshots/execution-trace.png)\n\nCaptured from the public dashboard. Outputs are deterministic offline templates.\n\n'+readme.slice(b);fs.writeFileSync('README.md',readme);}
+            let html=fs.readFileSync('docs/index.html','utf8');html=html.replace('<h2>The working interface</h2>','<h2>The working interface</h2><img src="screenshots/overview.png" alt="Mission dashboard"><img src="screenshots/agent-registry.png" alt="Role registry">').replace('Screenshot capture is pending. Open the working dashboard to inspect the interface.','Screenshots captured from the public dashboard.');fs.writeFileSync('docs/index.html',html);fs.writeFileSync('index.html',html.replaceAll('src="screenshots/','src="docs/screenshots/').replaceAll('href="ARCHITECTURE.md"','href="docs/ARCHITECTURE.md"').replaceAll('href="PRODUCT-CASE.md"','href="docs/PRODUCT-CASE.md"').replaceAll('href="PROGRAM-PLAN.md"','href="docs/PROGRAM-PLAN.md"'));
+          })().catch(e=>{console.error(e);process.exit(1)});
+          JS
+      - name: Update Pages overview even if capture fails
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('docs/index.html')
+          if p.exists():
+            html=p.read_text().replace('src="screenshots/','src="docs/screenshots/')
+            for name in ['ARCHITECTURE.md','PRODUCT-CASE.md','PROGRAM-PLAN.md']:
+              html=html.replace('href="'+name+'"','href="docs/'+name+'"')
+            Path('index.html').write_text(html)
+          PY
+      - name: Commit imported source
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish source, architecture, product case, delivery plan and screenshots'
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-screenshots
+          path: docs/screenshots/
+          if-no-files-found: ignore
