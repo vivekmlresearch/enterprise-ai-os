@@ -69,7 +69,7 @@ pnpm exec tsc --noEmit
 pnpm build
 ```
 
-The GitHub CI workflow runs the dependency-free engine test. Local type/build validation requires installed dependencies. Managed Sites helpers are included as upstream starter tooling; a standalone deployment requires hosting-specific configuration. The public repository intentionally excludes the original Site identity, tokens and environment files.
+The manual publication workflow verifies the dependency-free engine test. Local type/build validation requires installed dependencies. Managed Sites helpers are included as upstream starter tooling; a standalone deployment requires hosting-specific configuration. The public repository intentionally excludes the original Site identity, tokens and environment files.
 
 ## APIs
 
@@ -114,8 +114,9 @@ Retain the React/TypeScript UI. Evaluate LangGraph for role workflows, Temporal 
 
 ## GitHub Pages
 
-`docs/index.html` is a static technical/product overview linking to the working dashboard. `.github/workflows/pages.yml` publishes it when Pages is configured with GitHub Actions. GitHub Pages cannot host this app's server API; it is not a second backend deployment. A GitHub Pages URL should be announced only after deployment succeeds.
+[Public project overview](https://vivekmlresearch.github.io/enterprise-ai-os/) is deployed from the root of the main branch. docs/index.html contains the overview source. GitHub Pages hosts the static documentation and screenshots; the working dashboard and server API run on Sites.
 
 ## License and contribution
 
 Project-authored code/documentation: MIT. Dependencies and starter material retain upstream licenses; see [third-party notices](THIRD_PARTY_NOTICES.md). No model weights or private training data are distributed. Contributions should include meaningful acceptance evidence and preserve the distinction between simulated and real capabilities. See [contributing](CONTRIBUTING.md) and [security](SECURITY.md).
+
