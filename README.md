@@ -6,6 +6,58 @@
 
 > Status: offline prototype. The registry contains 1,000 logical positions, not 1,000 connected LLM agents. Outputs are deterministic templates. No real model, distributed worker cluster, UCP merchant or A2A service is connected. 
 
+## Version 2 — working AI team
+
+**Release status: requirements prepared; implementation pending.** The current public dashboard remains the offline V1 prototype. V2 will activate 5–10 genuine specialist agents; the 1,000-role registry remains the organizational blueprint.
+
+### Mission and scope
+
+A user submits an objective, deliverables, deadline and spending limit. A coordinator creates a reviewable dependency plan, delegates work to specialists, gathers evidence and sends the final result to an independent reviewer. Initial demonstration: assess an enterprise LLM platform and produce an architecture, cost analysis, delivery plan and QA review.
+
+| ID | Requirement | Acceptance evidence |
+|---|---|---|
+| V2-01 | Versioned role contracts for coordinator, Principal Engineer, Principal Data Scientist, Analyst, Product Manager, TPM, QA and Security Reviewer | Each active role specifies responsibilities, model, permitted tools and structured output |
+| V2-02 | Cloud model adapter and local inference adapter | Real responses from each configured endpoint; unavailable providers produce explicit errors |
+| V2-03 | Dependency-aware coordination | Downstream tasks consume validated upstream outputs; final review is recorded |
+| V2-04 | PostgreSQL mission, task, output and event storage | Mission survives refresh and resumes after controlled interruption |
+| V2-05 | Approved MCP tools for repository inspection and document retrieval | Tool results carry provenance and permissions are enforced |
+| V2-06 | Isolated code execution with limited resources and network access | Timeout and forbidden access tests; external changes require approval |
+| V2-07 | Retry, timeout, cancellation and resumable checkpoints | Controlled failures produce correct task transitions without silent loss |
+| V2-08 | Authenticated live execution with protected server-side credentials | Public visitors can use a synthetic demonstration; secrets never reach browser or repository |
+| V2-09 | Mission budgets and concurrency limits | Admission limits, actual usage and estimated cost displayed; spending limits halt further execution |
+| V2-10 | Organization and mission workspace UI | Registered, connected and running roles are distinct; dependencies, outputs and review feedback inspectable |
+| V2-11 | Evaluation and telemetry | At least 30 representative missions compared against human or single-agent baseline |
+| V2-12 | Reproducible release documentation | Setup, API contracts, screenshots, dependency licenses and limitations verified |
+
+### Implementation preparation
+
+Retain the existing React/TypeScript interface. Implement provider adapters, role contracts, a dependency scheduler and persistent repositories behind explicit interfaces. Evaluate orchestration frameworks during the first milestone before adding a new runtime; durable execution and enterprise-scale adapters are later work.
+
+Proposed components: role definitions, provider adapters, mission coordinator, task state machine, persistence repositories, MCP gateway, approval service, usage accounting and evaluation harness. Planned task states: queued, ready, running, awaiting approval, completed, failed and cancelled. Store prompt/model versions, evidence references and review outcomes with each task.
+
+Planned API contracts (not yet implemented): create/list missions; inspect mission/tasks/events; approve a pending action; cancel or resume a mission; list agent connection states. Approval records must bind the exact action and parameters. Retries must not duplicate external side effects.
+
+### Four-week pilot plan
+
+This is a scoped pilot track within the broader sixteen-week roadmap, assuming a dedicated small team and available model infrastructure.
+
+| Milestone | Proposed dates | Accountable role | Exit criteria |
+|---|---|---|---|
+| Contracts and model execution | 5–11 October 2026 | Principal Engineer / ML Engineer | Versioned contracts and three genuine specialists; provider errors handled |
+| Coordination and persistence | 12–18 October 2026 | Platform Engineer | Five or more specialists complete dependent tasks; restart recovery demonstrated |
+| Tools and controls | 19–25 October 2026 | Security / Platform Engineer | Approved MCP tools, isolated execution, approval gates and spending limits |
+| Evaluation and pilot release | 26 October–1 November 2026 | QA / Product Manager / TPM | Thirty evaluated missions, failure tests, revised screenshots and reproducible setup |
+
+### Release gates and product measures
+
+Release only after at least five connected specialists complete an end-to-end mission, dependency validation and persistence pass, approval-required writes stay blocked, and retry/timeout/cancellation tests pass. Publish the evaluation dataset, acceptance rubric, failure count, reviewed quality, wall-clock time and cost per accepted mission.
+
+Existing targets—25% faster reviewed completion, 30% less coordination effort and 95% required trace coverage—remain hypotheses. V2 must establish a baseline and report observed results before claiming benefits.
+
+### Dependencies and boundaries
+
+Model credentials or a reachable local inference service, PostgreSQL hosting and an isolated execution environment are implementation dependencies. No live model access is available merely from publishing these requirements. Distributed 1,000-agent execution, tenant administration, A2A interoperability and optional Google UCP merchant workflows remain V3 scope. MIT licensing continues for project-authored code; dependencies retain their own licenses.
+
 ## Interface screenshots
 
 ![Mission overview](docs/screenshots/overview.png)
@@ -22,18 +74,18 @@ Enterprise AI work requires more than model prompting: task state, role ownershi
 
 100 generic job titles are assigned across ten departments and repeated across ten teams per department, for 1,000 positions. Stable IDs distinguish repeated roles.
 
-| Department | Example roles | Positions |
-|---|---|---:|
-| AI Research | Principal Research Scientist, LLM Research Scientist | 100 |
-| Data Science & Analytics | Principal Data Scientist, Data Analyst | 100 |
-| Software Engineering | Principal Software Engineer, Distributed Systems Engineer | 100 |
-| ML Platform & Inference | Principal ML Engineer, GPU Systems Engineer | 100 |
-| Data Engineering | Principal Data Engineer, Knowledge Graph Engineer | 100 |
-| Cloud Infrastructure & SRE | Principal Infrastructure Engineer, SRE | 100 |
-| Security & Responsible AI | Principal Security Engineer, AI Red Team Engineer | 100 |
-| Product & Design | Principal Product Manager, UX Researcher | 100 |
-| Technical Program Management | Principal Technical Program Manager, AI Program Manager | 100 |
-| Quality & Developer Experience | Principal Quality Engineer, AI Evaluation Engineer | 100 |
+| Department | Example roles |
+|---|---|
+| AI Research | Principal Research Scientist, LLM Research Scientist |
+| Data Science & Analytics | Principal Data Scientist, Data Analyst |
+| Software Engineering | Principal Software Engineer, Distributed Systems Engineer |
+| ML Platform & Inference | Principal ML Engineer, GPU Systems Engineer |
+| Data Engineering | Principal Data Engineer, Knowledge Graph Engineer |
+| Cloud Infrastructure & SRE | Principal Infrastructure Engineer, SRE |
+| Security & Responsible AI | Principal Security Engineer, AI Red Team Engineer |
+| Product & Design | Principal Product Manager, UX Researcher |
+| Technical Program Management | Principal Technical Program Manager, AI Program Manager |
+| Quality & Developer Experience | Principal Quality Engineer, AI Evaluation Engineer |
 
 Role names are taxonomy only. Distinct role prompts, model-backed workflows and management hierarchy remain roadmap work.
 
@@ -119,4 +171,5 @@ Retain the React/TypeScript UI. Evaluate LangGraph for role workflows, Temporal 
 ## License and contribution
 
 Project-authored code/documentation: MIT. Dependencies and starter material retain upstream licenses; see [third-party notices](THIRD_PARTY_NOTICES.md). No model weights or private training data are distributed. Contributions should include meaningful acceptance evidence and preserve the distinction between simulated and real capabilities. See [contributing](CONTRIBUTING.md) and [security](SECURITY.md).
+
 
