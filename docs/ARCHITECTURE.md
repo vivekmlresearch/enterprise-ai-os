@@ -24,7 +24,7 @@ The worker pool is request-local, not distributed. Concurrency is capped at 32 a
 
 `POST /api/run` accepts `{task: string, count: integer, concurrency: integer, action?: string}`. Task length 1–8,000; count 1–1,000; concurrency 1–32. Returns run ID, timing, peak concurrency, completion/denial counts, per-role results and orchestration events. Payment completion is denied. Other scopes do not initiate external activity.
 
-`POST /api/mcp` supports initialize, ping, initialized notification, tools/list and tools/call. Read-only `agents_list` supports offset and limit (maximum 100). `catalog_search` returns a synthetic item. Protocol version 2025-03-26 is declared; full transport/session and SDK conformance are not established. Unknown methods return -32601. Google UCP and remote A2A delegation are not implemented.
+`POST /api/mcp` supports initialize, ping, initialized notification, tools/list and tools/call. Read-only `agents_list` supports offset and limit (maximum 100). `catalog_search` returns a synthetic item. Protocol version 2025-03-26 is declared; full transport/session and SDK conformance are not established. Unknown methods return -32601. 
 
 ## Intended production architecture
 
@@ -75,8 +75,4 @@ These are roadmap decisions, not installed capabilities. Validate current stable
 
 Request-local execution cannot recover after disconnects or process failure. LocalStorage can exceed quota. Generated role titles do not implement distinct reasoning workflows. Model outputs will require evidence validation and adversarial evaluation. Public endpoints need real abuse controls before connecting paid models. Server-side authorization must accompany identity; frontend controls are insufficient.
 
-## References
 
-- https://modelcontextprotocol.io/docs/sdk
-- https://developers.google.com/universal-commerce-protocol
-- https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
